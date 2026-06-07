@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+
+    a { color: #aac4ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      background: #161622;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      height: 52px;
+    }
+
+    nav a {
+      color: #c8c8e0;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+    }
+
+    nav a:hover { opacity: 1; text-decoration: none; }
+
+    /* ── WRAPPER ── */
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 32px 100px;
+    }
+
+    /* ── HERO ── */
+    /* sketch: First (top-left), Lastname (below-center-left), profile pic (center), intro box (right) */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 160px 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 0 32px;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+
+    .hero-firstname {
+      grid-column: 1;
+      grid-row: 1;
+      font-family: 'Syne', sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #f0f0f0;
+      align-self: end;
+      padding-bottom: 4px;
+    }
+
+    .hero-pic {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #2a2a3a;
+      border: 2px solid #444;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 12px;
+      text-align: center;
+      align-self: center;
+    }
+
+    .hero-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-intro {
+      grid-column: 3;
+      grid-row: 1 / 4;
+      background: transparent;
+      border: 1px solid #444;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      color: #bbb;
+      line-height: 1.7;
+      align-self: stretch;
+      min-height: 160px;
+    }
+
+    .hero-lastname {
+      grid-column: 1;
+      grid-row: 2;
+      font-family: 'Syne', sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #f0f0f0;
+      padding-left: 60px;
+      align-self: start;
+      padding-top: 4px;
+    }
+
+    .hero-links {
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: 24px;
+      font-size: 13px;
+      color: #888;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-links a { color: #aac4ff; }
+    .hero-links span { color: #444; }
+
+    /* ── PUBLICATIONS SECTION HEADER ── */
+    /* Sketch: "Publications" text on a baseline, with a diagonal ramp going up-right to a long horizontal line above */
+    .section-head {
+      margin: 48px 0 32px;
+      position: relative;
+    }
+
+    .section-head-inner {
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+    }
+
+    .section-head-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #f0f0f0;
+      position: relative;
+      padding-bottom: 6px;
+      padding-right: 2px;
+      /* baseline underline */
+      border-bottom: 1.5px solid #f0f0f0;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    /* the diagonal ramp: rises from right edge of label to meet the top line */
+    .section-ramp {
+      width: 36px;
+      flex-shrink: 0;
+      position: relative;
+      align-self: stretch;
+    }
+
+    .section-ramp svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* long horizontal line at top (above label) */
+    .section-topline {
+      flex: 1;
+      height: 0;
+      border-top: 1.5px solid #f0f0f0;
+      align-self: flex-start;
+      margin-top: 0;
+    }
+
+    /* ── PUB ITEM ── */
+    .pub-list { display: flex; flex-direction: column; gap: 36px; }
+
+    .pub-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+      gap: 0;
+    }
+
+    .pub-thumb {
+      flex-shrink: 0;
+      width: 180px;
+      height: 130px;
+      background: #1e1e2e;
+      border: 1px solid #444;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 12px;
+    }
+
+    .pub-thumb img, .pub-thumb video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* the < bracket: an inline SVG, fixed width, full height of item */
+    .pub-bracket {
+      flex-shrink: 0;
+      width: 36px;
+      align-self: stretch;
+    }
+
+    .pub-bracket svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* right side: content sits between the two bracket lines */
+    .pub-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* top bar */
+    .pub-top-bar {
+      border-top: 1.5px solid #f0f0f0;
+      border-right: 1.5px solid #f0f0f0;
+      border-bottom: 1.5px solid #f0f0f0;
+      padding: 10px 14px;
+    }
+
+    /* bottom bar */
+    .pub-bot-bar {
+      border-top: 1.5px solid #f0f0f0;
+      border-right: 1.5px solid #f0f0f0;
+      border-bottom: 1.5px solid #f0f0f0;
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .pub-title {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #f0f0f0;
+      border-bottom: 1px solid #333;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .pub-title a { color: #f0f0f0; }
+    .pub-title a:hover { color: #aac4ff; }
+
+    .badge-new {
+      display: inline-block;
+      background: #aac4ff;
+      color: #0a0a0a;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px 1px 5px;
+      clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 100%, 0 100%);
+      margin-right: 6px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .pub-authors { font-size: 13px; color: #888; margin-bottom: 3px; }
+    .pub-venue { font-size: 13px; font-style: italic; color: #666; }
+
+    .pub-bot-bar a {
+      font-size: 12.5px;
+      color: #aac4ff;
+      padding-right: 12px;
+      margin-right: 12px;
+      border-right: 1px solid #333;
+    }
+
+    .pub-bot-bar a:last-child { border-right: none; }
+
+    /* ── AFFILIATIONS ── */
+    .affiliations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .affil-item {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .affil-logo {
+      width: 72px; height: 72px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .affil-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+
+    /* ── NEWS ── */
+    .news-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .news-table tr { border-bottom: 1px solid #222; }
+    .news-table tr:last-child { border-bottom: none; }
+    .news-table td { padding: 7px 8px; vertical-align: top; color: #bbb; }
+    .news-table td:first-child { white-space: nowrap; color: #666; font-weight: 700; width: 110px; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 60px;
+      padding-top: 16px;
+      border-top: 1px solid #222;
+      font-size: 12px;
+      color: #444;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; gap: 20px; }
+      .wrapper { padding: 32px 18px 80px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-firstname, .hero-lastname { font-size: 38px; }
+      .hero-lastname { padding-left: 0; }
+      .hero-pic { grid-column: 1; grid-row: auto; margin: 0 auto; }
+      .hero-intro { grid-column: 1; grid-row: auto; }
+      .hero-links { grid-column: 1; grid-row: auto; }
+      .pub-item { flex-direction: column; }
+      .pub-thumb { width: 100%; height: 150px; clip-path: none; }
+      .pub-h-connector { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#arts">Arts</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="wrapper">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-firstname">First</div>
+      <div class="hero-pic">
+        <!-- <img src="img/profile.jpg" alt="Your Name" /> -->
+        profile<br/>pic
+      </div>
+      <div class="hero-intro">
+        Write a short intro here — your current role, institution,
+        research interests, and what you're looking for.
+        Two to four sentences works well.
+      </div>
+      <div class="hero-lastname">Lastname</div>
+      <div class="hero-links">
+        <a href="data/CV.pdf">CV</a><span>|</span>
+        <a href="mailto:you@example.com">Email</a><span>|</span>
+        <a href="#">Google Scholar</a><span>|</span>
+        <a href="#">GitHub</a><span>|</span>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS HEADER -->
+    <div class="section-head" id="projects">
+      <div class="section-head-inner">
+        <div class="section-head-label">Publications</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <!-- diagonal line from bottom-left to top-right, matching the sketch ramp -->
+            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-topline"></div>
+      </div>
+    </div>
+
+    <!-- PUB LIST -->
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-thumb">image / gif</div>
+        <svg class="pub-bracket" viewBox="0 0 36 130" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="36,0 0,65 36,130" fill="none" stroke="#f0f0f0" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="pub-right">
+          <div class="pub-top-bar">
+            <div class="pub-title"><span class="badge-new">NEW</span><a href="#">Publication Title One: A Descriptive Title Here</a></div>
+            <div class="pub-authors">Author One, <strong>Your Name</strong>, Author Three</div>
+            <div class="pub-venue">Under review</div>
+          </div>
+          <div class="pub-bot-bar">
+            <a href="#">proj page</a><a href="#">paper</a><a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-thumb">image / gif</div>
+        <svg class="pub-bracket" viewBox="0 0 36 130" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="36,0 0,65 36,130" fill="none" stroke="#f0f0f0" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="pub-right">
+          <div class="pub-top-bar">
+            <div class="pub-title"><span class="badge-new">NEW</span><a href="#">Publication Title Two: Another Paper</a></div>
+            <div class="pub-authors"><strong>Your Name</strong>, Author Two, Author Three</div>
+            <div class="pub-venue">Conference Name 2025</div>
+          </div>
+          <div class="pub-bot-bar">
+            <a href="#">proj page</a><a href="#">paper</a><a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-thumb">image / gif</div>
+        <svg class="pub-bracket" viewBox="0 0 36 130" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="36,0 0,65 36,130" fill="none" stroke="#f0f0f0" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="pub-right">
+          <div class="pub-top-bar">
+            <div class="pub-title"><a href="#">Publication Title Three</a></div>
+            <div class="pub-authors">Author One, Author Two, <strong>Your Name</strong></div>
+            <div class="pub-venue">Conference Name 2024</div>
+          </div>
+          <div class="pub-bot-bar">
+            <a href="#">paper</a><a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AFFILIATIONS -->
+    <div class="section-head">
+      <div class="section-head-inner">
+        <div class="section-head-label">Affiliations</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-topline"></div>
+      </div>
+    </div>
+
+    <div class="affiliations">
+      <div class="affil-item">
+        <div class="affil-logo"></div>
+        <div>University</div><div>2018–2022</div>
+      </div>
+      <div class="affil-item">
+        <div class="affil-logo"></div>
+        <div>University</div><div>2022–Present</div>
+      </div>
+      <div class="affil-item">
+        <div class="affil-logo"></div>
+        <div>Company</div><div>Summer 2024</div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="section-head" id="contact">
+      <div class="section-head-inner">
+        <div class="section-head-label">News</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-topline"></div>
+      </div>
+    </div>
+
+    <table class="news-table">
+      <tr><td>Jun 2026</td><td>Description of recent news — paper accepted, talk, award, etc.</td></tr>
+      <tr><td>Jan 2026</td><td>Another news item. <a href="#">Link if relevant.</a></td></tr>
+      <tr><td>Sep 2025</td><td>Started new role at <a href="#">Institution</a>.</td></tr>
+      <tr><td>May 2025</td><td>Paper on [topic] accepted at [Conference 2025].</td></tr>
+    </table>
+
+    <footer>Built by Your Name · Hosted on GitHub Pages</footer>
+
+  </div>
+
+</body>
+</html>
