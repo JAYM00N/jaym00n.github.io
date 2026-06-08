@@ -41,13 +41,13 @@
        TUNE THESE
     ============================ */
     :root {
-      --photo-size:  300px;
+      --photo-size:  250px;
       --photo-top:   -40px;
       --photo-left:  240px;
 
-      --arc-r:       155px;  /* semicircle radius */
-      --arc-x:       390px;  /* arc center x (from left of hero) */
-      --arc-y:       110px;  /* arc center y (from top of hero) */
+      --arc-r:       130px;  /* semicircle radius */
+      --arc-x:       365px;  /* arc center x (from left of hero) */
+      --arc-y:       85px;  /* arc center y (from top of hero) */
 
       --line-length: 80px;   /* how far the horizontal line sticks out left */
     }
@@ -91,9 +91,9 @@
     .hero-intro {
       position: absolute;
       top: 0; left: 560px; right: 0;
-      border: 1px solid #444;
-      padding: 18px 20px;
-      font-size: 13.5px;
+     
+     
+      font-size: 15px;
       color: #bbb;
       line-height: 1.7;
     }
@@ -214,8 +214,10 @@
       <div class="hero-photo">
           <img src="pic.jpg" alt="Jay Moon" />
         </div>
-      <div class="hero-intro">Hi, I'm Jay Moon, currently stuck in the South Korea mandatory military service and is taking a abscence of leave from UIUC (will return as sophmore).
-        My work interests are robotics, specifically hardware design. 
+      <div class="hero-intro">
+        <p>Hi, I'm Jay Moon, currently stuck in the South Korea mandatory military service and is taking a abscence of leave from UIUC (will return as sophmore).</p>
+        <p>My work interests are robotics, specifically hardware design. </p>
+        
 
       </div>
       <div class="hero-links">
@@ -304,7 +306,7 @@
     const TOP_LINE_X  = 15;
     const BOT_LINE    = 15;
     const MID_LINE    = -15;
-    const LINE_LENGTH = 300;  // horizontal line length
+    const LINE_LENGTH = 275;  // horizontal line length
     const DIAG_LENGTH = 57;   // 45° tick at end
 
     function drawHeroDeco() {
@@ -323,7 +325,7 @@
       let d = '';
       d += `<path d="M ${ax} ${ay - r} A ${r} ${r} 0 0 1 ${ax} ${ay + r}" fill="none" stroke="#f0f0f0" stroke-width="7"/>`;
       d += `<line x1="${ax}" y1="${ay - r}" x2="${ax - LINE_LENGTH}" y2="${ay - r}" stroke="#f0f0f0" stroke-width="7"/>`;
-      d += `<line x1="${ax - LINE_LENGTH+1.5}" y1="${ay - r}" x2="${ax - LINE_LENGTH - DIAG_LENGTH}" y2="${ay - r + DIAG_LENGTH}" stroke="#f0f0f0" stroke-width="7"/>`;
+      d += `<line x1="${ax - LINE_LENGTH+2}" y1="${ay - r}" x2="${ax - LINE_LENGTH - DIAG_LENGTH}" y2="${ay - r + DIAG_LENGTH}" stroke="#f0f0f0" stroke-width="7"/>`;
 
       svg.innerHTML = d;
     }
