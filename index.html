@@ -219,18 +219,15 @@
 
     footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #0f1628; font-size: 12px; color: #2a3050; text-align: center; }
 
-    /* mobile scaling — layout stays identical, whole page shrinks */
-    .scale-root {
-      transform-origin: top center;
-      margin: 0 auto;
-      display: block;
-    }
+    @media (max-width: 900px) { body { zoom: 0.85; } }
+    @media (max-width: 768px) { body { zoom: 0.72; } }
+    @media (max-width: 600px) { body { zoom: 0.58; } }
+    @media (max-width: 480px) { body { zoom: 0.46; } }
+    @media (max-width: 390px) { body { zoom: 0.38; } }
 
   </style>
 </head>
 <body>
-
-  <div class="scale-root">
 
   <nav>
     <a href="#">Home</a>
@@ -400,23 +397,5 @@
     window.addEventListener('resize', () => { drawHeroDeco(); drawLines(); });
   </script>
 
-  <script>
-    // scale entire page down on small screens, layout unchanged
-    const DESIGN_WIDTH = 964; // nav padding(48*2) + wrapper max(900) - approx full width
-    function scaleToFit() {
-      const el    = document.querySelector('.scale-root');
-      const vw    = window.innerWidth;
-      const scale = vw < DESIGN_WIDTH ? vw / DESIGN_WIDTH : 1;
-      el.style.transform   = `scale(${scale})`;
-      el.style.width       = `${DESIGN_WIDTH}px`;
-      el.style.marginLeft  = 'auto';
-      el.style.marginRight = 'auto';
-      document.body.style.height = `${el.offsetHeight * scale}px`;
-    }
-    window.addEventListener('load',   scaleToFit);
-    window.addEventListener('resize', scaleToFit);
-  </script>
-
-</div> <!-- end scale-root -->
 </body>
 </html>
