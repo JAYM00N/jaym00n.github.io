@@ -11,25 +11,41 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #0a0a0a;
-      color: #f0f0f0;
+      background: #080b14;
+      color: #dce8ff;
       font-size: 15px;
       line-height: 1.65;
     }
 
-    a { color: #aac4ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* subtle blue-purple radial glow in background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 60% 20%, rgba(120, 140, 255, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(160, 100, 255, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper, nav { position: relative; z-index: 1; }
+
+    a { color: #a8c4f5; text-decoration: none; }
+    a:hover { color: #c9b8ff; text-decoration: none; }
 
     nav {
-      background: #161622;
+      background: rgba(12, 16, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(140, 160, 255, 0.12);
       padding: 0 48px;
       display: flex;
       gap: 36px;
       align-items: center;
       height: 52px;
     }
-    nav a { color: #c8c8e0; font-size: 14px; opacity: 0.85; }
-    nav a:hover { opacity: 1; text-decoration: none; }
+    nav a { color: #8aa0cc; font-size: 14px; letter-spacing: 0.04em; }
+    nav a:hover { color: #c9b8ff; }
 
     .wrapper {
       max-width: 900px;
@@ -45,11 +61,9 @@
       --photo-top:   -40px;
       --photo-left:  240px;
 
-      --arc-r:       130px;  /* semicircle radius */
-      --arc-x:       365px;  /* arc center x (from left of hero) */
-      --arc-y:       85px;  /* arc center y (from top of hero) */
-
-      --line-length: 80px;   /* how far the horizontal line sticks out left */
+      --arc-r:       130px;
+      --arc-x:       365px;
+      --arc-y:       85px;
     }
 
     .hero {
@@ -66,6 +80,10 @@
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #dce8ff 0%, #b8a8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-name .lastname { display: block; padding-left: 60px; }
 
@@ -77,7 +95,6 @@
       height: var(--photo-size);
       border-radius: 50%;
       background: transparent;
-
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -91,12 +108,9 @@
     .hero-intro {
       position: absolute;
       top: 0; left: 560px; right: 0;
-     
-     
-      font-size: 15px;
-      color: #bbb;
-      line-height: 1.7;
-      
+      font-size: 13.5px;
+      color: #8a9abf;
+      line-height: 1.75;
     }
     .hero-intro p + p { margin-top: 10px; }
 
@@ -109,7 +123,9 @@
       flex-wrap: wrap;
       align-items: center;
     }
-    .hero-links span { color: #444; }
+    .hero-links span { color: #2a3050; }
+    .hero-links a { color: #7a9ce0; }
+    .hero-links a:hover { color: #c9b8ff; }
 
     .hero-deco {
       position: absolute;
@@ -127,12 +143,14 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 19px; font-weight: 700;
       padding-bottom: 6px;
-      border-bottom: 1.5px solid #f0f0f0;
+      border-bottom: 1.5px solid rgba(160, 180, 255, 0.4);
       white-space: nowrap;
+      color: #c0d0ff;
+      letter-spacing: 0.05em;
     }
     .section-ramp { width: 36px; flex-shrink: 0; position: relative; align-self: stretch; }
     .section-ramp svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; overflow: visible; }
-    .section-line { flex: 1; border-top: 1.5px solid #f0f0f0; align-self: flex-start; }
+    .section-line { flex: 1; border-top: 1.5px solid rgba(160, 180, 255, 0.2); align-self: flex-start; }
 
     .pub-list { display: flex; flex-direction: column; gap: 48px; }
     .pub-item { position: relative; display: flex; align-items: center; }
@@ -140,11 +158,11 @@
     .pub-thumb {
       flex-shrink: 0;
       width: 180px; height: 140px;
-      background: #1e1e2e;
-      border: 1px solid #444;
+      background: #0e1220;
+      border: 1px solid rgba(100, 130, 200, 0.2);
       overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      color: #555; font-size: 12px;
+      color: #333; font-size: 12px;
       z-index: 1;
     }
     .pub-thumb img, .pub-thumb video { width: 100%; height: 100%; object-fit: cover; }
@@ -159,21 +177,23 @@
     }
 
     .pub-title { font-size: 20px; font-weight: 500; line-height: 1.35; }
-    .pub-title a { color: #f0f0f0; }
-    .pub-title a:hover { color: #aac4ff; }
-    .pub-authors { font-size: 13px; color: #888; margin-bottom: 10px; }
-    .pub-venue   { font-size: 13px; font-style: italic; color: #666; margin-bottom: 15px; }
+    .pub-title a { color: #dce8ff; }
+    .pub-title a:hover { color: #c9b8ff; }
+    .pub-authors { font-size: 13px; color: #5a6a8a; margin-bottom: 10px; }
+    .pub-venue   { font-size: 13px; font-style: italic; color: #4a5a7a; margin-bottom: 15px; }
 
     .pub-links a {
-      font-size: 12.5px; color: #aac4ff;
+      font-size: 12.5px; color: #7a9ce0;
       padding-right: 12px; margin-right: 12px; margin-bottom: 6px;
-      border-right: 1px solid #333;
+      border-right: 1px solid #1e2a44;
     }
     .pub-links a:last-child { border-right: none; }
+    .pub-links a:hover { color: #c9b8ff; }
 
     .badge-new {
       display: inline-block;
-      background: #aac4ff; color: #0a0a0a;
+      background: linear-gradient(90deg, #7a9ce0, #b8a8ff);
+      color: #080b14;
       font-size: 10px; font-weight: 700;
       padding: 1px 7px 1px 5px;
       clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 100%, 0 100%);
@@ -181,22 +201,23 @@
     }
 
     .affiliations { display: flex; flex-wrap: wrap; gap: 20px; }
-    .affil-item { text-align: center; font-size: 12px; color: #777; }
+    .affil-item { text-align: center; font-size: 12px; color: #4a5a7a; }
     .affil-logo {
       width: 72px; height: 72px;
-      background: #1a1a1a; border: 1px solid #333;
+      background: #0e1220;
+      border: 1px solid rgba(100, 130, 200, 0.2);
       margin: 0 auto 6px;
       display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
     .affil-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
 
     .news-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    .news-table tr { border-bottom: 1px solid #222; }
+    .news-table tr { border-bottom: 1px solid #0f1628; }
     .news-table tr:last-child { border-bottom: none; }
-    .news-table td { padding: 7px 8px; vertical-align: top; color: #bbb; }
-    .news-table td:first-child { white-space: nowrap; color: #666; font-weight: 700; width: 110px; }
+    .news-table td { padding: 7px 8px; vertical-align: top; color: #7a8aaa; }
+    .news-table td:first-child { white-space: nowrap; color: #3a4a6a; font-weight: 700; width: 110px; }
 
-    footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #222; font-size: 12px; color: #444; text-align: center; }
+    footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #0f1628; font-size: 12px; color: #2a3050; text-align: center; }
 
   </style>
 </head>
@@ -214,15 +235,11 @@
     <div class="hero">
       <div class="hero-name">Jay<span class="lastname">Moon</span></div>
       <div class="hero-photo">
-          <img src="pic.jpg" alt="Jay Moon" />
-        </div>
+        <img src="pic.jpg" alt="Jay Moon" />
+      </div>
       <div class="hero-intro">
         <p>Hi, I'm Jay Moon, currently on a military leave from UIUC to serve the ROK army (will return as sophomore 2027 fall).</p>
-        <p> </p>
-        
-        <p>My work interests are robotics, specifically hardware design. </p>
-        
-
+        <p>My work interests are robotics, specifically hardware design.</p>
       </div>
       <div class="hero-links">
         <a href="data/CV.pdf">CV</a><span>|</span>
@@ -237,7 +254,7 @@
         <div class="section-title">Publications</div>
         <div class="section-ramp">
           <svg viewBox="0 0 36 32" preserveAspectRatio="none">
-            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="section-line"></div>
@@ -269,7 +286,7 @@
         <div class="section-title">Affiliations</div>
         <div class="section-ramp">
           <svg viewBox="0 0 36 32" preserveAspectRatio="none">
-            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="section-line"></div>
@@ -289,7 +306,7 @@
         <div class="section-title">News</div>
         <div class="section-ramp">
           <svg viewBox="0 0 36 32" preserveAspectRatio="none">
-            <line x1="0" y1="32" x2="36" y2="0" stroke="#f0f0f0" stroke-width="1.5"/>
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="section-line"></div>
@@ -310,8 +327,13 @@
     const TOP_LINE_X  = 15;
     const BOT_LINE    = 15;
     const MID_LINE    = -15;
-    const LINE_LENGTH = 275;  // horizontal line length
-    const DIAG_LENGTH = 57;   // 45° tick at end
+    const LINE_LENGTH = 275;
+    const DIAG_LENGTH = 57;
+
+    const STROKE_COLOR_HERO = '#dce8ff';
+    const STROKE_COLOR_THIN = 'rgba(160, 190, 255, 0.6)';
+    const STROKE_THICK = '7';
+    const STROKE_THIN  = '1.5';
 
     function drawHeroDeco() {
       const svg  = document.querySelector('.hero-deco');
@@ -324,19 +346,18 @@
       const r  = pxv('--arc-r');
       const ax = pxv('--arc-x');
       const ay = pxv('--arc-y');
-      const bruh = 9
 
       let d = '';
-      d += `<path d="M ${ax} ${ay - r} A ${r} ${r} 0 0 1 ${ax} ${ay + r}" fill="none" stroke="#f0f0f0" stroke-width="7"/>`;
-      d += `<line x1="${ax}" y1="${ay - r}" x2="${ax - LINE_LENGTH}" y2="${ay - r}" stroke="#f0f0f0" stroke-width="7"/>`;
-      d += `<line x1="${ax - LINE_LENGTH+2}" y1="${ay - r}" x2="${ax - LINE_LENGTH - DIAG_LENGTH}" y2="${ay - r + DIAG_LENGTH}" stroke="#f0f0f0" stroke-width="7"/>`;
+      d += `<path d="M ${ax} ${ay - r} A ${r} ${r} 0 0 1 ${ax} ${ay + r}" fill="none" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
+      d += `<line x1="${ax}" y1="${ay - r}" x2="${ax - LINE_LENGTH}" y2="${ay - r}" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
+      d += `<line x1="${ax - LINE_LENGTH + 2}" y1="${ay - r}" x2="${ax - LINE_LENGTH - DIAG_LENGTH}" y2="${ay - r + DIAG_LENGTH}" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
 
       svg.innerHTML = d;
     }
 
     function drawLines() {
       const ln = (x1,y1,x2,y2) =>
-        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f0f0f0" stroke-width="1.5"/>`;
+        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${STROKE_COLOR_THIN}" stroke-width="${STROKE_THIN}"/>`;
 
       document.querySelectorAll('.pub-item').forEach(item => {
         const svg   = item.querySelector('.pub-svg');
