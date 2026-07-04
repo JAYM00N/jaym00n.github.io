@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jay Moon</title>
@@ -57,19 +57,15 @@
        TUNE THESE
     ============================ */
     :root {
-      --photo-size:  250px;
-      --photo-top:   -40px;
-      --photo-left:  240px;
-
-      --arc-r:       130px;
-      --arc-x:       365px;
-      --arc-y:       85px;
+      --photo-size:  200px;
+      --photo-top:   130px;
+      --photo-left:  0px;
     }
 
     .hero {
       position: relative;
       height: 220px;
-      margin-bottom: 60px;
+      margin-bottom: 200px;
     }
 
     .hero-name {
@@ -93,7 +89,7 @@
       left: var(--photo-left);
       width: var(--photo-size);
       height: var(--photo-size);
-      border-radius: 50%;
+      border-radius: 20%;
       background: transparent;
       overflow: hidden;
       display: flex;
@@ -107,8 +103,8 @@
 
     .hero-intro {
       position: absolute;
-      top: 0; left: 560px; right: 0;
-      font-size: 13.5px;
+      top: 100px; left: 250px; right: 0;
+      font-size: 20px;
       color: #8a9abf;
       line-height: 1.75;
     }
@@ -116,24 +112,16 @@
 
     .hero-links {
       position: absolute;
-      bottom: 0; left: 0;
+      bottom: -150px; left: 40px;
       font-size: 13px;
       display: flex;
       gap: 4px;
-      flex-wrap: wrap;
-      align-items: center;
+      
+      
     }
-    .hero-links span { color: #2a3050; }
-    .hero-links a { color: #7a9ce0; }
+    .hero-links span { color: #ffffff; }
+    .hero-links a { color: #ffffff; }
     .hero-links a:hover { color: #c9b8ff; }
-
-    .hero-deco {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      overflow: visible;
-    }
 
     /* ============================ */
 
@@ -219,20 +207,24 @@
 
     footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #0f1628; font-size: 12px; color: #2a3050; text-align: center; }
 
-    @media (max-width: 900px) { body { zoom: 0.85; } }
-    @media (max-width: 768px) { body { zoom: 0.72; } }
-    @media (max-width: 600px) { body { zoom: 0.58; } }
-    @media (max-width: 480px) { body { zoom: 0.46; } }
-    @media (max-width: 390px) { body { zoom: 0.38; } }
+    /* mobile scaling — layout stays identical, whole page shrinks */
+    .scale-root {
+      transform-origin: top center;
+      margin: 0 auto;
+      display: block;
+    }
 
   </style>
 </head>
 <body>
 
+  <div class="scale-root">
+
   <nav>
     <a href="#">Home</a>
-    <a href="#publications">Projects</a>
-    <a href="#arts">Arts</a>
+    <a href="#publications">Publications</a>
+    <a href="projects.html">Projects</a>
+    <a href="https://seji.artstation.com/" target="_blank">Arts</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -244,15 +236,16 @@
         <img src="pic.jpg" alt="Jay Moon" />
       </div>
       <div class="hero-intro">
-        <p>Hi, I'm Jay Moon, currently on a military leave from UIUC to serve the ROK army (will return as sophomore 2027 fall).</p>
-        <p>My work interests are robotics, specifically hardware design.</p>
+        <p>Hi, I'm Jay Moon — currently on military leave from UIUC serving in the ROK Army, returning as a sophomore in Fall 2027.</p>
+        <p>I work on robotics, specifically hardware design.</p>
+        <p>In my free time I do mech design, build Gundams, and draw illustrations — check out my Arts page!</p>
+        <p>My ultimate goal in life is to make Gundam real.</p>
       </div>
       <div class="hero-links">
         <a href="data/CV.pdf">CV</a><span>|</span>
         <a href="mailto:jmoon5656@gmail.com">Email</a><span>|</span>
-        <a href="https://github.com/JAYM00N">GitHub</a><span>|</span>
+        <a href="https://github.com/JAYM00N">GitHub</a>
       </div>
-      <svg class="hero-deco" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
 
     <div class="section-head" id="publications">
@@ -286,6 +279,36 @@
         <svg class="pub-svg" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
     </div>
+    <div class="section-head" id="projects">
+  <div class="section-head-inner">
+    <div class="section-title">Projects</div>
+    <div class="section-ramp">
+      <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+        <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="pub-list">
+  <div class="pub-item">
+    <div class="pub-thumb">
+      <img src="ReactionWheel.png" alt="ReactionWheel" />
+    </div>
+    <div class="pub-info">
+      <div class="pub-title">
+        <a href="#">Self-Balancing Cube</a>
+      </div>
+      <div class="pub-authors">Jay Moon</div>
+      <div class="pub-venue">Reaction wheel + PID control · In progress</div>
+    </div>
+    <div class="pub-links">
+      <a href="#">GitHub</a>
+    </div>
+    <svg class="pub-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+</div>
 
     <div class="section-head">
       <div class="section-head-inner">
@@ -333,33 +356,9 @@
     const TOP_LINE_X  = 15;
     const BOT_LINE    = 15;
     const MID_LINE    = -15;
-    const LINE_LENGTH = 275;
-    const DIAG_LENGTH = 57;
 
-    const STROKE_COLOR_HERO = '#dce8ff';
     const STROKE_COLOR_THIN = 'rgba(160, 190, 255, 0.6)';
-    const STROKE_THICK = '7';
     const STROKE_THIN  = '1.5';
-
-    function drawHeroDeco() {
-      const svg  = document.querySelector('.hero-deco');
-      const hero = document.querySelector('.hero');
-      if (!svg || !hero) return;
-
-      const cs  = getComputedStyle(document.documentElement);
-      const pxv = v => parseFloat(cs.getPropertyValue(v));
-
-      const r  = pxv('--arc-r');
-      const ax = pxv('--arc-x');
-      const ay = pxv('--arc-y');
-
-      let d = '';
-      d += `<path d="M ${ax} ${ay - r} A ${r} ${r} 0 0 1 ${ax} ${ay + r}" fill="none" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
-      d += `<line x1="${ax}" y1="${ay - r}" x2="${ax - LINE_LENGTH}" y2="${ay - r}" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
-      d += `<line x1="${ax - LINE_LENGTH + 2}" y1="${ay - r}" x2="${ax - LINE_LENGTH - DIAG_LENGTH}" y2="${ay - r + DIAG_LENGTH}" stroke="${STROKE_COLOR_HERO}" stroke-width="${STROKE_THICK}"/>`;
-
-      svg.innerHTML = d;
-    }
 
     function drawLines() {
       const ln = (x1,y1,x2,y2) =>
@@ -393,9 +392,27 @@
       });
     }
 
-    window.addEventListener('load',   () => { drawHeroDeco(); drawLines(); });
-    window.addEventListener('resize', () => { drawHeroDeco(); drawLines(); });
+    window.addEventListener('load',   drawLines);
+    window.addEventListener('resize', drawLines);
   </script>
 
+  <script>
+    // scale entire page down on small screens, layout unchanged
+    const DESIGN_WIDTH = 964; // nav padding(48*2) + wrapper max(900) - approx full width
+    function scaleToFit() {
+      const el    = document.querySelector('.scale-root');
+      const vw    = window.innerWidth;
+      const scale = vw < DESIGN_WIDTH ? vw / DESIGN_WIDTH : 1;
+      el.style.transform   = `scale(${scale})`;
+      el.style.width       = `${DESIGN_WIDTH}px`;
+      el.style.marginLeft  = 'auto';
+      el.style.marginRight = 'auto';
+      document.body.style.height = `${el.offsetHeight * scale}px`;
+    }
+    window.addEventListener('load',   scaleToFit);
+    window.addEventListener('resize', scaleToFit);
+  </script>
+
+</div> <!-- end scale-root -->
 </body>
 </html>
