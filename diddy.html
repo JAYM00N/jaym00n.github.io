@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jay Moon</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #080b14;
+      color: #dce8ff;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* subtle blue-purple radial glow in background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 60% 20%, rgba(120, 140, 255, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(160, 100, 255, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper, nav { position: relative; z-index: 1; }
+
+    a { color: #a8c4f5; text-decoration: none; }
+    a:hover { color: #c9b8ff; text-decoration: none; }
+
+    nav {
+      background: rgba(12, 16, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(140, 160, 255, 0.12);
+      padding: 0 48px;
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      height: 52px;
+    }
+    nav a { color: #8aa0cc; font-size: 14px; letter-spacing: 0.04em; }
+    nav a:hover { color: #c9b8ff; }
+
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 32px 100px;
+    }
+
+    /* ============================
+       TUNE THESE
+    ============================ */
+    :root {
+      --photo-size:  200px;
+      --photo-top:   130px;
+      --photo-left:  0px;
+    }
+
+    .hero {
+      position: relative;
+      height: 220px;
+      margin-bottom: 200px;
+    }
+
+    .hero-name {
+      position: absolute;
+      top: 0; left: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #dce8ff 0%, #b8a8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-name .lastname { display: block; padding-left: 60px; }
+
+    .hero-photo {
+      position: absolute;
+      top: var(--photo-top);
+      left: var(--photo-left);
+      width: var(--photo-size);
+      height: var(--photo-size);
+      border-radius: 20%;
+      background: transparent;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 12px;
+      text-align: center;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-intro {
+      position: absolute;
+      top: 100px; left: 250px; right: 0;
+      font-size: 20px;
+      color: #8a9abf;
+      line-height: 1.75;
+    }
+    .hero-intro p + p { margin-top: 10px; }
+
+    .hero-links {
+      position: absolute;
+      bottom: -150px; left: 40px;
+      font-size: 13px;
+      display: flex;
+      gap: 4px;
+      
+      
+    }
+    .hero-links span { color: #ffffff; }
+    .hero-links a { color: #ffffff; }
+    .hero-links a:hover { color: #c9b8ff; }
+
+    /* ============================ */
+
+    .section-head { margin: 48px 0 32px; }
+    .section-head-inner { display: flex; align-items: flex-end; }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 19px; font-weight: 700;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid rgba(160, 180, 255, 0.4);
+      white-space: nowrap;
+      color: #c0d0ff;
+      letter-spacing: 0.05em;
+    }
+    .section-ramp { width: 36px; flex-shrink: 0; position: relative; align-self: stretch; }
+    .section-ramp svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; overflow: visible; }
+    .section-line { flex: 1; border-top: 1.5px solid rgba(160, 180, 255, 0.2); align-self: flex-start; }
+
+    .pub-list { display: flex; flex-direction: column; gap: 48px; }
+    .pub-item { position: relative; display: flex; align-items: center; }
+
+    .pub-thumb {
+      flex-shrink: 0;
+      width: 180px; height: 140px;
+      background: #0e1220;
+      border: 1px solid rgba(100, 130, 200, 0.2);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      color: #333; font-size: 12px;
+      z-index: 1;
+    }
+    .pub-thumb img, .pub-thumb video { width: 100%; height: 100%; object-fit: cover; }
+
+    .pub-info { position: absolute; bottom: 25px; left: 230px; right: 0; }
+    .pub-links { position: absolute; bottom: -15px; left: 230px; right: 0; display: flex; align-items: center; }
+
+    .pub-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; overflow: visible; z-index: 2;
+    }
+
+    .pub-title { font-size: 20px; font-weight: 500; line-height: 1.35; }
+    .pub-title a { color: #dce8ff; }
+    .pub-title a:hover { color: #c9b8ff; }
+    .pub-authors { font-size: 13px; color: #5a6a8a; margin-bottom: 10px; }
+    .pub-venue   { font-size: 13px; font-style: italic; color: #4a5a7a; margin-bottom: 15px; }
+
+    .pub-links a {
+      font-size: 12.5px; color: #7a9ce0;
+      padding-right: 12px; margin-right: 12px; margin-bottom: 6px;
+      border-right: 1px solid #1e2a44;
+    }
+    .pub-links a:last-child { border-right: none; }
+    .pub-links a:hover { color: #c9b8ff; }
+
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(90deg, #7a9ce0, #b8a8ff);
+      color: #080b14;
+      font-size: 10px; font-weight: 700;
+      padding: 1px 7px 1px 5px;
+      clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 100%, 0 100%);
+      margin-right: 6px; vertical-align: middle;
+    }
+
+    .affiliations { display: flex; flex-wrap: wrap; gap: 20px; }
+    .affil-item { text-align: center; font-size: 12px; color: #4a5a7a; }
+    .affil-logo {
+      width: 72px; height: 72px;
+      background: #0e1220;
+      border: 1px solid rgba(100, 130, 200, 0.2);
+      margin: 0 auto 6px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .affil-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+
+    .news-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .news-table tr { border-bottom: 1px solid #0f1628; }
+    .news-table tr:last-child { border-bottom: none; }
+    .news-table td { padding: 7px 8px; vertical-align: top; color: #7a8aaa; }
+    .news-table td:first-child { white-space: nowrap; color: #3a4a6a; font-weight: 700; width: 110px; }
+
+    footer { margin-top: 60px; padding-top: 16px; border-top: 1px solid #0f1628; font-size: 12px; color: #2a3050; text-align: center; }
+
+    /* mobile scaling — layout stays identical, whole page shrinks */
+    .scale-root {
+      transform-origin: top center;
+      margin: 0 auto;
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="scale-root">
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#publications">Publications</a>
+    <a href="projects.html">Projects</a>
+    <a href="https://x.com/SEJIM0/media">Arts - X</a>
+    <a href="https://seji.artstation.com/">Arts - Artstation</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="wrapper">
+
+    <div class="hero">
+      <div class="hero-name">Jay<span class="lastname">Moon</span></div>
+      <div class="hero-photo">
+        <img src="pic.jpg" alt="Jay Moon" />
+      </div>
+      <div class="hero-intro">
+        <p>Hi, I'm Jay Moon — currently on military leave from UIUC serving in the ROK Army, returning as a sophomore in Fall 2027.</p>
+        <p>I work on robotics, specifically hardware design.</p>
+        <p>In my free time I do mech design, build Gundams, and draw illustrations — check out my Arts page!</p>
+        <p>My ultimate goal in life is to make Gundam real.</p>
+      </div>
+      <div class="hero-links">
+        <a href="Resume.pdf">CV</a><span>|</span>
+        <a href="mailto:jmoon5656@gmail.com">Email</a><span>|</span>
+        <a href="https://github.com/JAYM00N">GitHub</a>
+      </div>
+    </div>
+
+    <div class="section-head" id="publications">
+      <div class="section-head-inner">
+        <div class="section-title">Publications</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-line"></div>
+      </div>
+    </div>
+
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-thumb"><img src="Final Video.gif" alt="CRAFT" /></div>
+        <div class="pub-info">
+          <div class="pub-title">
+            <span class="badge-new">NEW</span>
+            <a href="https://craft-hand.github.io/">CRAFT: A Tendon-Driven Hand with Hybrid Hard-Soft Compliance</a>
+          </div>
+          <div class="pub-authors">Leo Lin*, Shivansh Patel*, <strong>Jay Moon*</strong>, Svetlana Lazebnik†, Unnat Jain†</div>
+          <div class="pub-venue">RSS 2026</div>
+        </div>
+        <div class="pub-links">
+          <a href="#">proj page</a>
+          <a href="#">paper</a>
+          <a href="#">GitHub</a>
+        </div>
+        <svg class="pub-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+    <div class="section-head" id="projects">
+  <div class="section-head-inner">
+    <div class="section-title">Projects</div>
+    <div class="section-ramp">
+      <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+        <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="section-line"></div>
+  </div>
+</div>
+
+<div class="pub-list">
+  <div class="pub-item">
+    <div class="pub-thumb">
+      <img src="ReactionWheel.png" alt="ReactionWheel" />
+    </div>
+    <div class="pub-info">
+      <div class="pub-title">
+        <a href="#">Self-Balancing Cube</a>
+      </div>
+      <div class="pub-authors">Jay Moon</div>
+      <div class="pub-venue">Reaction wheel + PID control · In progress</div>
+    </div>
+    <div class="pub-links">
+      <a href="#">GitHub</a>
+    </div>
+    <svg class="pub-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+</div>
+
+    <div class="section-head">
+      <div class="section-head-inner">
+        <div class="section-title">Affiliations</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-line"></div>
+      </div>
+    </div>
+
+    <div class="affiliations">
+      <div class="affil-item">
+        <div class="affil-logo"><img src="UIUC.png" alt="UIUC" /></div>
+        <div>University of Illinois Urbana-Champaign</div>
+        <div>2024–Present</div>
+      </div>
+    </div>
+
+    <div class="section-head" id="contact">
+      <div class="section-head-inner">
+        <div class="section-title">News</div>
+        <div class="section-ramp">
+          <svg viewBox="0 0 36 32" preserveAspectRatio="none">
+            <line x1="0" y1="32" x2="36" y2="0" stroke="rgba(160,180,255,0.3)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="section-line"></div>
+      </div>
+    </div>
+
+    <table class="news-table">
+      <tr><td>Jun 2026</td><td>Paper accepted at RSS 2026.</td></tr>
+    </table>
+
+    <footer>Built by my hard work · Hosted on GitHub Pages</footer>
+
+  </div>
+
+  <script>
+    const TICK        = 15;
+    const TOP_LINE_Y  = -15;
+    const TOP_LINE_X  = 15;
+    const BOT_LINE    = 15;
+    const MID_LINE    = -15;
+
+    const STROKE_COLOR_THIN = 'rgba(160, 190, 255, 0.6)';
+    const STROKE_THIN  = '1.5';
+
+    function drawLines() {
+      const ln = (x1,y1,x2,y2) =>
+        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${STROKE_COLOR_THIN}" stroke-width="${STROKE_THIN}"/>`;
+
+      document.querySelectorAll('.pub-item').forEach(item => {
+        const svg   = item.querySelector('.pub-svg');
+        const thumb = item.querySelector('.pub-thumb');
+        if (!svg || !thumb) return;
+
+        const ir = item.getBoundingClientRect();
+        const th = thumb.getBoundingClientRect();
+
+        const TLx = th.left  - ir.left,  TLy = th.top    - ir.top;
+        const BLx = th.left  - ir.left,  BLy = th.bottom - ir.top;
+        const TRx = th.right - ir.left;
+        const BRx = th.right - ir.left,  BRy = th.bottom - ir.top;
+        const R   = ir.width;
+
+        let d = '';
+        d += ln(TLx, TLy, TLx - TICK, TLy - TICK);
+        d += ln(TRx, TLy, TRx + TICK, TLy - TICK);
+        d += ln(BLx, BLy, BLx - TICK, BLy + TICK);
+        d += ln(BRx, BRy, BRx + TICK, BRy + TICK);
+        d += ln(BRx, BRy, BRx + TICK, BRy - TICK);
+        d += ln(TRx + TOP_LINE_X, TLy + TOP_LINE_Y, R, TLy + TOP_LINE_Y);
+        d += ln(BLx + 195, BLy + BOT_LINE, R, BLy + BOT_LINE);
+        d += ln(BLx + 195, BLy + MID_LINE, R, BLy + MID_LINE);
+
+        svg.innerHTML = d;
+      });
+    }
+
+    window.addEventListener('load',   drawLines);
+    window.addEventListener('resize', drawLines);
+  </script>
+
+  <script>
+    // scale entire page down on small screens, layout unchanged
+    const DESIGN_WIDTH = 964; // nav padding(48*2) + wrapper max(900) - approx full width
+    function scaleToFit() {
+      const el    = document.querySelector('.scale-root');
+      const vw    = window.innerWidth;
+      const scale = vw < DESIGN_WIDTH ? vw / DESIGN_WIDTH : 1;
+      el.style.transform   = `scale(${scale})`;
+      el.style.width       = `${DESIGN_WIDTH}px`;
+      el.style.marginLeft  = 'auto';
+      el.style.marginRight = 'auto';
+      document.body.style.height = `${el.offsetHeight * scale}px`;
+    }
+    window.addEventListener('load',   scaleToFit);
+    window.addEventListener('resize', scaleToFit);
+  </script>
+
+</div> <!-- end scale-root -->
+</body>
+</html>
