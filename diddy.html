@@ -68,6 +68,13 @@
       margin-bottom: 200px;
     }
 
+    .gradient-text {
+      background: linear-gradient(135deg, #dce8ff 0%, #b8a8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .hero-name {
       position: absolute;
       top: 0; left: 0;
@@ -76,11 +83,8 @@
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #dce8ff 0%, #b8a8ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
+    .hero-name.gradient-text { display: block; }
     .hero-name .lastname { display: block; padding-left: 60px; }
 
     .hero-photo {
@@ -168,7 +172,8 @@
     .pub-title a { color: #dce8ff; }
     .pub-title a:hover { color: #c9b8ff; }
     .pub-authors { font-size: 13px; color: #5a6a8a; margin-bottom: 10px; }
-    .pub-venue   { font-size: 13px; font-style: italic; color: #4a5a7a; margin-bottom: 15px; }
+    .pub-venue   { font-size: 13px; font-style: italic; color: #4a5a7a; margin-bottom: 6px; }
+    .pub-award   { font-size: 13px; font-weight: 500; margin-bottom: 15px; }
 
     .pub-links a {
       font-size: 12.5px; color: #7a9ce0;
@@ -232,7 +237,7 @@
   <div class="wrapper">
 
     <div class="hero">
-      <div class="hero-name">Jay<span class="lastname">Moon</span></div>
+      <div class="hero-name gradient-text">Jay<span class="lastname">Moon</span></div>
       <div class="hero-photo">
         <img src="pic.jpg" alt="Jay Moon" />
       </div>
@@ -271,6 +276,7 @@
           </div>
           <div class="pub-authors">Leo Lin*, Shivansh Patel*, <strong>Jay Moon*</strong>, Svetlana Lazebnik†, Unnat Jain†</div>
           <div class="pub-venue">RSS 2026</div>
+          <div class="pub-award"><span class="gradient-text">Best Paper Award · Dexterous Manipulation Workshop</span></div>
         </div>
         <div class="pub-links">
           <a href="#">proj page</a>
